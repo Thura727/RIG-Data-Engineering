@@ -1,0 +1,1182 @@
+Microsoft Windows [Version 10.0.26200.8655]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Asus>docker exec -it oracle-srv bash
+bash-4.2$ sqlplus
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Tue Jun 23 05:56:37 2026
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Mon Jun 22 2026 10:45:40 +00:00
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> DESC departments;
+ERROR:
+ORA-04043: object departments does not exist
+
+
+SQL> DROP TABLE departments CASCADE CONSTRAINTS;
+DROP TABLE departments CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> CREATE TABLE departments (
+    department_id NUMBER PRIMARY KEY,
+    department_name VARCHAR2(100) NOT NULL,
+    location VARCHAR2(100)
+);  2    3    4    5
+
+Table created.
+
+SQL> CREATE TABLE jobs (
+    job_id NUMBER PRIMARY KEY,
+    job_title VARCHAR2(100) NOT NULL,
+    min_salary NUMBER(10,2),
+    max_salary NUMBER(10,2)
+);  2    3    4    5    6
+
+Table created.
+
+SQL> CREATE TABLE employees (
+    employee_id NUMBER PRIMARY KEY,
+    first_name VARCHAR2(50) NOT NULL,
+    last_name VARCHAR2(50) NOT NULL,
+    email VARCHAR2(100) UNIQUE,
+    phone VARCHAR2(30),
+    hire_date DATE DEFAULT SYSDATE,
+    salary NUMBER(10,2) CHECK (salary   2  > 0),
+    department_id NUMBER,
+    job_id NUMBER,
+    manager_id NUMBER,
+    CONSTRAINT fk_emp_dept
+        FOREIGN KEY (department_id)
+        REFERENCES departments(department_id),
+    CONSTRAINT fk_emp_job
+        FOREIGN KEY (job_id)
+        REFERENCES jobs(job_id),
+    CONSTRAINT fk_emp_manager
+        FOREIGN KEY (manager_id)
+      3      REFERENCES employees(employee_id)
+);
+  4    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19   20   21
+Table created.
+
+SQL> CREATE TABLE attendance (
+    attendance_id NUMBER PRIMARY KEY,
+    employee_id NUMBER NOT NULL,
+    attendance_date DATE DEFAULT SYSDATE,
+    check_in TIMESTAMP,
+    check_out TIMESTAMP,
+    status VARCHAR2(20) CHECK (status IN ('Present', 'Absent', 'Leave', 'Late')),
+    CONSTRAINT fk_att_emp
+        FOREIGN KEY (employee_id)
+        REFERENCES employees(employee_id)
+);  2    3    4    5    6    7    8    9   10   11
+
+Table created.
+
+SQL> DESC payroll;
+ERROR:
+ORA-04043: object payroll does not exist
+
+
+SQL> REATE TABLE payroll (
+    payroll_id NUMBER PRIMARY KEY,
+    employee_id NUMBER NOT NULL,
+    salary_month VARCHAR2(20),
+    basic_salary NUMBER(10,2),
+    allowance NUMBER(10,2),
+    deduction NUMBER(10,2),
+    net_salary NUMBER(10,2),
+    CONSTRAINT fk_payroll_emp
+        FOREIGN KEY (employee_id)
+        REFERENCES employees(employee_id)
+);SP2-0734: unknown command beginning "REATE TABL..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "payroll_id..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "employee_i..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "salary_mon..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> SP2-0734: unknown command beginning "basic_sala..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "allowance ..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "deduction ..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "net_salary..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> SP2-0734: unknown command beginning "CONSTRAINT..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "FOREIGN KE..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "REFERENCES..." - rest of line ignored.
+SQL>
+SP2-0042: unknown command ")" - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> CREATE TABLE payroll (
+    payroll_id NUMBER PRIMARY KEY,
+    employee_id NUMBER NOT NULL,
+    salary_month VARCHAR2(20),
+    basic_salary NUMBER(10,2),
+    allowance NUMBER(10,2),
+    deduction NUMBER(10,2),
+    net_salary NUMBER(10,2),
+    CONSTRAINT fk_payroll_emp
+        FOREIGN KEY (employee_id)
+        REFERENCES employees(employee_id)
+);
+  2    3    4    5    6    7    8    9   10   11   12
+Table created.
+
+SQL>
+CREATE SEQUENCE seq_department START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE seq_job START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE seq_employee START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE seq_attendance START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE seq_payroll START WITH 1 INCREMENT BY 1;SQL>
+Sequence created.
+
+SQL>
+Sequence created.
+
+SQL>
+Sequence created.
+
+SQL>
+Sequence created.
+
+SQL>
+CREATE INDEX idx_emp_department ON employees(department_id);
+CREATE INDEX idx_emp_job ON employees(job_id);
+CREATE INDEX idx_attendance_date ON attendance(attendance_date);
+Sequence created.
+
+SQL>
+Index created.
+
+SQL>
+Index created.
+
+SQL> ALTER TABLE employees
+ADD employment_status VARCHAR2(20) DEFAULT 'Active';  2
+CREATE INDEX idx_attendance_date ON attendance(attendance_date);ALTER TABLE employees
+                                                               *
+ERROR at line 1:
+ORA-02158: invalid CREATE INDEX option
+
+
+SQL> INSERT INTO departments VALUES
+(seq_department.NEXTVAL, 'Human Resources', 'Yangon');
+
+INSERT INTO departments VALUES
+(seq_department.NEXTVAL, 'Finance', 'Mandalay');
+
+INSERT INTO departments VALUES
+(seq_department.NEXTVAL, 'IT', 'Naypyidaw');
+
+INSERT INTO departments VALUE  2  S
+(seq_department.NEXTVAL, 'Sales', 'Yangon');
+1 row created.
+
+SQL> SQL>   2
+1 row created.
+
+SQL> SQL>   2
+1 row created.
+
+SQL> SQL>   2
+
+1 row created.
+
+SQL> INSERT INTO jobs VALUES
+(seq_job.NEXTVAL, 'HR Officer', 400000, 900000);
+
+INSERT INTO jobs VALUES
+(seq_job.NEXTVAL, 'Accountant', 500000, 1200000);
+
+INSERT INTO jobs VALUES
+(seq_job.NEXTVAL, 'Software Engineer', 700000, 2000000);
+
+INSERT INTO jobs VALUES
+(seq_job.NEXTVAL, 'Sales Executive', 400000, 1500000);
+
+INSERT INTO jobs VALUES
+(seq_job.NEXTVAL, 'IT Manager', 1500000, 3500000);  2
+1 row created.
+
+SQL> SQL>   2
+1 row created.
+
+SQL> SQL>   2
+1 row created.
+
+SQL> SQL>   2
+1 row created.
+
+SQL> SQL>   2
+
+1 row created.
+
+SQL>
+SQL> INSERT INTO employees (
+    employee_id, first_name, last_name, email, phone,
+    hire_date, salary, department_id, job_id, manager_id
+)
+VALUES (
+    seq_employee.NEXTVAL, 'Aung', 'Aung', 'aung.aung@company.com',
+    '09111111111', DATE '2022  2  -01-10', 2500000, 3, 5, NULL
+);
+
+INSERT INTO employees (
+    employee_id, first_name, last_name, email, phone,
+    hire_date, salary, department_id, job_id, manager_id
+)
+VALUES (
+    seq_employee.NEXTVAL, 'Su', 'Su', 'su  3  .su@company.com',
+    '09222222222', DATE '2023-03-15', 800000, 1, 1, 1
+);
+
+INSERT INTO employees (
+    employee_id, first_name, last_name, email, phone,
+    hire_date, salary, department_id, job_id, manager_id
+)
+VALUES (
+   4    5    6    7     seq_employee.NEXTVAL, 'Kyaw', 'Kyaw', 'kya  8  w.kyaw@company.com',
+    '09333333333', DATE '2023-06-20', 950000, 2, 2, 1
+);
+
+INSERT INTO employees (
+    employee_id, first_name, last_name, email, phone,
+    hire_date, salary, department_id, job_id, manager_id
+)
+VALUES (
+    seq_employee.NEXTVAL, 'Hla', 'Hla', 'hla.hla@company.com',
+    '09444444444', DATE '2024-02-01', 1200000, 3, 3, 1
+);
+
+INSERT INTO employees (
+    employee_id, first_name, last_name, email, phone,
+    hire_date, salary, department_id, job_id, manager_id
+)
+VALUES (
+    seq_employee.NEXTVAL, 'Mya', 'Mya', 'mya.mya@company.com',
+    '09555555555', DATE '2024-05-05', 700000, 4, 4, 1
+);
+
+1 row created.
+
+SQL> SQL>   2    3    4    5    6    7    8
+1 row created.
+
+SQL> SQL>   2    3    4    5    6    7    8
+1 row created.
+
+SQL> SQL>   2    3    4    5    6    7    8
+1 row created.
+
+SQL> SQL>   2    3    4    5    6    7    8
+1 row created.
+
+SQL> INSERT INTO attendance VALUES
+(seq_attendance.NEXTVAL, 1, DATE '2026-05-01',
+ TIMESTAMP '2026-05-01 08:55:00',
+ TIMESTAMP '2026-05-01 17:30:00',
+ 'Present');
+
+INSERT INTO attendance VALUES
+(seq_attendance.NEXTVAL, 2, DATE '2026-05-01',
+ TIMESTAMP '2026-05-01 09:20:00',
+ TIMESTAMP '2026-05-01 17:00:00',
+ 'Late');
+
+INSERT INTO attendance VALUES
+(seq_attendance.NEXTVAL, 3, DATE '2026-05-01',
+ TIMESTAMP '2026-05-01 08:50:00',
+ TIMESTAMP '2026-05-01 17:10:00',
+ 'Present');
+
+INSERT INTO attendance VALUES
+(seq_  2  attendance.NEXTVAL, 4, DATE '2026-05-01',
+ NULL,
+ NULL,
+ 'Leave');
+
+INSERT INTO attendance VALUES
+(seq_attendance.NEXTVAL, 5, DATE '2026-05-01',
+ TIMESTAMP '2026-05-01 09:00:00',
+ TIMESTAMP '2026-05-01 17:00:00',
+ 'Present');
+  3    4    5
+1 row created.
+
+SQL> SQL>   2    3    4    5
+1 row created.
+
+SQL> SQL>   2    3    4    5
+1 row created.
+
+SQL> SQL>   2    3    4    5
+1 row created.
+
+SQL> SQL>   2    3    4    5
+1 row created.
+
+SQL> INSERT INTO payroll VALUES
+(seq_payroll.NEXTVAL, 1, 'May-2026', 2500000, 300000, 100000, 2700000);
+
+INSERT INTO payroll VALUES
+(seq_payroll.NEXTVAL, 2, 'May-2026', 800000, 100000, 30000, 870000);
+
+INSERT INTO payroll VALUES
+(seq_payroll.NEXTVAL, 3, 'May-2026', 950000, 150000, 50000, 1050000);
+
+INSERT INTO payroll VALUES
+(seq_payroll.NEXTVAL, 4, 'May-2026', 1200000, 200000, 80000, 1320000);
+
+INSERT INTO payroll VALUES
+(seq_payroll.NEXTVAL, 5, 'May-2026', 700000, 80000, 2000  2  0, 760000);
+1 row created.
+
+SQL> SQL>   2
+1 row created.
+
+SQL> SQL>   2
+1 row created.
+
+SQL> SQL>   2
+1 row created.
+
+SQL> SQL>   2
+
+1 row created.
+
+SQL> SELECT employee_ID, salary, department_id from employees
+WHERE department_id = 3;  2
+
+EMPLOYEE_ID     SALARY DEPARTMENT_ID
+----------- ---------- -------------
+          1    2500000             3
+          4    1200000             3
+
+SQL> UPDATE employees
+SET salary = salary + 100000
+WHERE department_id = 3;
+
+
+/* Delete inactive attendance example */
+
+SELECT attendance_id, employee_id, status FROM attendance;
+
+DELETE FROM attendance
+WHERE status = 'Late';
+  2    3
+2 rows updated.
+
+SQL> SQL> SQL> SQL> SQL>
+ATTENDANCE_ID EMPLOYEE_ID STATUS
+------------- ----------- --------------------
+            1           1 Present
+            2           2 Late
+            3           3 Present
+            4           4 Leave
+            5           5 Present
+
+SQL> SQL>   2
+1 row deleted.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT *
+FROM employees;  2
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+          1 Aung
+Aung
+aung.aung@company.com
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+09111111111                    10-JAN-22    2600000             3          5
+
+
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+          2 Su
+Su
+su.su@company.com
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+09222222222                    15-MAR-23     800000             1          1
+         1
+
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+          3 Kyaw
+Kyaw
+kyaw.kyaw@company.com
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+09333333333                    20-JUN-23     950000             2          2
+         1
+
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+          4 Hla
+Hla
+hla.hla@company.com
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+09444444444                    01-FEB-24    1300000             3          3
+         1
+
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+          5 Mya
+Mya
+mya.mya@company.com
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+09555555555                    05-MAY-24     700000             4          4
+         1
+
+
+SQL> SELECT
+    e.employee_id,
+    e.first_name || ' ' || e.last_name AS employee_name,
+    d.department_name,
+    j.job_title,
+    e.salary
+FROM employees e
+JOIN departments d
+    ON e.department_id = d.department_id
+JOIN jobs j
+    ON e.job_id =  2   j.job_id;  3    4    5    6    7    8    9   10   11
+
+EMPLOYEE_ID
+-----------
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+JOB_TITLE
+--------------------------------------------------------------------------------
+    SALARY
+----------
+          2
+Su Su
+Human Resources
+
+EMPLOYEE_ID
+-----------
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+JOB_TITLE
+--------------------------------------------------------------------------------
+    SALARY
+----------
+HR Officer
+    800000
+
+
+EMPLOYEE_ID
+-----------
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+JOB_TITLE
+--------------------------------------------------------------------------------
+    SALARY
+----------
+          3
+Kyaw Kyaw
+Finance
+
+EMPLOYEE_ID
+-----------
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+JOB_TITLE
+--------------------------------------------------------------------------------
+    SALARY
+----------
+Accountant
+    950000
+
+
+EMPLOYEE_ID
+-----------
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+JOB_TITLE
+--------------------------------------------------------------------------------
+    SALARY
+----------
+          4
+Hla Hla
+IT
+
+EMPLOYEE_ID
+-----------
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+JOB_TITLE
+--------------------------------------------------------------------------------
+    SALARY
+----------
+Software Engineer
+   1300000
+
+
+EMPLOYEE_ID
+-----------
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+JOB_TITLE
+--------------------------------------------------------------------------------
+    SALARY
+----------
+          5
+Mya Mya
+Sales
+
+EMPLOYEE_ID
+-----------
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+JOB_TITLE
+--------------------------------------------------------------------------------
+    SALARY
+----------
+Sales Executive
+    700000
+
+
+EMPLOYEE_ID
+-----------
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+JOB_TITLE
+--------------------------------------------------------------------------------
+    SALARY
+----------
+          1
+Aung Aung
+IT
+
+EMPLOYEE_ID
+-----------
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+JOB_TITLE
+--------------------------------------------------------------------------------
+    SALARY
+----------
+IT Manager
+   2600000
+
+
+SQL> SELECT employee_id, first_name, last_name, salary
+FROM employees
+WHERE salary > 1000000;  2    3
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME                                              SALARY
+-------------------------------------------------- ----------
+          1 Aung
+Aung                                                  2600000
+
+          4 Hla
+Hla                                                   1300000
+
+
+SQL> SELECT
+    d.department_name,
+    COUNT(e.employee_id) AS total_employees
+FROM departments d
+LEFT JOIN employees e
+    ON d.department_id = e.department_id
+GROUP BY d.department_name
+ORDER BY total_employees DESC;  2    3    4    5    6    7    8
+
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+TOTAL_EMPLOYEES
+---------------
+IT
+              2
+
+Sales
+              1
+
+Human Resources
+              1
+
+
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+TOTAL_EMPLOYEES
+---------------
+Finance
+              1
+
+
+SQL> SELECT
+    d.department_name,
+    AVG(e.salary) AS average_salary
+FROM employees e
+JOIN departments d
+    ON e.department_id = d.department_id
+GROUP BY d.department_name;  2    3    4    5    6    7
+
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+AVERAGE_SALARY
+--------------
+Human Resources
+        800000
+
+Finance
+        950000
+
+IT
+       1950000
+
+
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------
+AVERAGE_SALARY
+--------------
+Sales
+        700000
+
+
+SQL> SELECT *
+FROM employees
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM employees
+);  2    3    4    5    6
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+          1 Aung
+Aung
+aung.aung@company.com
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME
+--------------------------------------------------
+EMAIL
+--------------------------------------------------------------------------------
+PHONE                          HIRE_DATE     SALARY DEPARTMENT_ID     JOB_ID
+------------------------------ --------- ---------- ------------- ----------
+MANAGER_ID
+----------
+09111111111                    10-JAN-22    2600000             3          5
+
+
+
+SQL> SELECT
+    e.first_name || ' ' || e.last_name AS employee_name,
+    m.first_name || ' ' || m.last_name AS manager_name
+FROM employees e
+LEFT JOIN employees m
+    ON e.manager_id = m.employee_id;  2    3    4    5    6
+
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+MANAGER_NAME
+--------------------------------------------------------------------------------
+Su Su
+Aung Aung
+
+Kyaw Kyaw
+Aung Aung
+
+Hla Hla
+Aung Aung
+
+
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+MANAGER_NAME
+--------------------------------------------------------------------------------
+Mya Mya
+Aung Aung
+
+Aung Aung
+
+
+
+SQL> SELECT
+    e.first_name || ' ' || e.last_name AS employee_name,
+    a.attendance_date,
+    a.check_in,
+    a.check_out,
+    a.status
+FROM attendance a
+JOIN employees e
+    ON a.employee_id = e.employee_id;
+  2    3    4    5    6    7    8    9
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+ATTENDANC
+---------
+CHECK_IN
+---------------------------------------------------------------------------
+CHECK_OUT
+---------------------------------------------------------------------------
+STATUS
+--------------------
+Aung Aung
+01-MAY-26
+01-MAY-26 08.55.00.000000 AM
+
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+ATTENDANC
+---------
+CHECK_IN
+---------------------------------------------------------------------------
+CHECK_OUT
+---------------------------------------------------------------------------
+STATUS
+--------------------
+01-MAY-26 05.30.00.000000 PM
+Present
+
+
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+ATTENDANC
+---------
+CHECK_IN
+---------------------------------------------------------------------------
+CHECK_OUT
+---------------------------------------------------------------------------
+STATUS
+--------------------
+Kyaw Kyaw
+01-MAY-26
+01-MAY-26 08.50.00.000000 AM
+
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+ATTENDANC
+---------
+CHECK_IN
+---------------------------------------------------------------------------
+CHECK_OUT
+---------------------------------------------------------------------------
+STATUS
+--------------------
+01-MAY-26 05.10.00.000000 PM
+Present
+
+
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+ATTENDANC
+---------
+CHECK_IN
+---------------------------------------------------------------------------
+CHECK_OUT
+---------------------------------------------------------------------------
+STATUS
+--------------------
+Hla Hla
+01-MAY-26
+
+
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+ATTENDANC
+---------
+CHECK_IN
+---------------------------------------------------------------------------
+CHECK_OUT
+---------------------------------------------------------------------------
+STATUS
+--------------------
+
+Leave
+
+
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+ATTENDANC
+---------
+CHECK_IN
+---------------------------------------------------------------------------
+CHECK_OUT
+---------------------------------------------------------------------------
+STATUS
+--------------------
+Mya Mya
+01-MAY-26
+01-MAY-26 09.00.00.000000 AM
+
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+ATTENDANC
+---------
+CHECK_IN
+---------------------------------------------------------------------------
+CHECK_OUT
+---------------------------------------------------------------------------
+STATUS
+--------------------
+01-MAY-26 05.00.00.000000 PM
+Present
+
+
+SQL> SELECT
+    e.first_name || ' ' || e.last_name AS employee_name,
+    p.salary_month,
+    p.basic_salary,
+    p.allowance,
+    p.deduction,
+    p.net_salary
+FROM payroll p
+JOIN employees e
+    ON p.employee_id = e.employee_id;  2    3    4    5    6    7    8    9   10
+
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+SALARY_MONTH         BASIC_SALARY  ALLOWANCE  DEDUCTION NET_SALARY
+-------------------- ------------ ---------- ---------- ----------
+Aung Aung
+May-2026                  2500000     300000     100000    2700000
+
+Su Su
+May-2026                   800000     100000      30000     870000
+
+Kyaw Kyaw
+May-2026                   950000     150000      50000    1050000
+
+
+EMPLOYEE_NAME
+--------------------------------------------------------------------------------
+SALARY_MONTH         BASIC_SALARY  ALLOWANCE  DEDUCTION NET_SALARY
+-------------------- ------------ ---------- ---------- ----------
+Hla Hla
+May-2026                  1200000     200000      80000    1320000
+
+Mya Mya
+May-2026                   700000      80000      20000     760000
+
+
+SQL> SELECT employee_id, first_name, last_name, hire_date
+FROM employees
+WHERE EXTRACT(YEAR FROM hire_date) = 2024;  2    3
+
+EMPLOYEE_ID FIRST_NAME
+----------- --------------------------------------------------
+LAST_NAME                                          HIRE_DATE
+-------------------------------------------------- ---------
+          4 Hla
+Hla                                                01-FEB-24
+
+          5 Mya
+Mya                                                05-MAY-24
+
+
+SQL> SAVEPOINT before_salary_update;
+
+UPDATE employees
+SET salary = salary + 50000
+WHERE department_id = 1;
+Savepoint created.
+
+SQL> SQL>   2    3
+
+1 row updated.
+
+SQL> SELECT employee_id, first_name, salary
+FROM employees
+WHERE department_id = 1;
+  2    3
+EMPLOYEE_ID FIRST_NAME                                             SALARY
+----------- -------------------------------------------------- ----------
+          2 Su                                                     850000
+
+SQL> ROLLBACK TO before_salary_update;
+
+Rollback complete.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SAVEPOINT before_delete;
+
+DELETE FROM payroll
+WHERE salary_month = 'May-2026'
+AND employee_id = 5;
+Savepoint created.
+
+SQL> SQL>   2    3
+
+1 row deleted.
+
+SQL> SAVEPOINT before_delete;
+
+DELETE FROM payroll
+WHERE salary_month = 'May-2026'
+AND employee_id = 5;
+Savepoint created.
+
+SQL> SQL>   2    3
+
+0 rows deleted.
+
+SQL> ROLLBACK TO before_delete;
+
+Rollback complete.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> CREATE USER hr_report_user IDENTIFIED BY Report##123;
+CREATE USER hr_report_user IDENTIFIED BY Report##123
+            *
+ERROR at line 1:
+ORA-65096: invalid common user or role name
+
+
+SQL> SHOW CON_NAME;
+
+CON_NAME
+------------------------------
+CDB$ROOT
+SQL> ALTER SESSION SET CONTAINER = ORCLPDB;
+ERROR:
+ORA-65011: Pluggable database ORCLPDB does not exist.
+
+
+SQL> SHOW CON_NAME;
+
+CON_NAME
+------------------------------
+CDB$ROOT
+SQL> CREATE USER hr_report_user IDENTIFIED BY Report##123;
+CREATE USER hr_report_user IDENTIFIED BY Report##123
+            *
+ERROR at line 1:
+ORA-65096: invalid common user or role name
+
+
+SQL> GRANT SELECT ON departments TO hr_report_user;
+GRANT SELECT ON employees TO hr_report_user;
+GRANT SELECT ON jobs TO hr_report_user;
+GRANT SELECT ON attendance TO hr_report_user;
+GRANT SELECT ON payroll TO hr_report_user;
+GRANT SELECT ON departments TO hr_report_user
+                               *
+ERROR at line 1:
+ORA-01917: user or role 'HR_REPORT_USER' does not exist
+
+
+SQL> GRANT SELECT ON employees TO hr_report_user
+                             *
+ERROR at line 1:
+ORA-01917: user or role 'HR_REPORT_USER' does not exist
+
+
+SQL> GRANT SELECT ON jobs TO hr_report_user
+                        *
+ERROR at line 1:
+ORA-01917: user or role 'HR_REPORT_USER' does not exist
+
+
+SQL> GRANT SELECT ON attendance TO hr_report_user
+                              *
+ERROR at line 1:
+ORA-01917: user or role 'HR_REPORT_USER' does not exist
+
+
+SQL> GRANT SELECT ON payroll TO hr_report_user
+                           *
+ERROR at line 1:
+ORA-01917: user or role 'HR_REPORT_USER' does not exist
+
+
+SQL> SHOW PDBS;
+SP2-0382: The SHOW PDBS command is not available
+SQL> CON_ID  CON_NAME   OPEN MODE
+2       PDB$SEED   READ ONLY
+3       ORCLPDB    READ WRITESP2-0734: unknown command beginning "CON_ID  CO..." - rest of line ignored.
+SQL> SQL> ALTER SESSION SET CONTAINER=ORCLPDB;
+SQL> SHOW CON_NAME;
+
+CON_NAME
+------------------------------
+CDB$ROOT
+SQL> CREATE USER hr_report_user IDENTIFIED BY Report##123;
+CREATE USER hr_report_user IDENTIFIED BY Report##123
+            *
+ERROR at line 1:
+ORA-65096: invalid common user or role name
+
+
+SQL> SHOW USER;
+USER is "SYSTEM"
+SQL> EXIT;
+Disconnected from Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+bash-4.2$ slqplus
+bash: slqplus: command not found
+bash-4.2$ exir
+bash: exir: command not found
+bash-4.2$ exit
+exit
+
+C:\Users\Asus>docker exec -it oracle-srv bash
+bash-4.2$ sqlplus
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Tue Jun 23 06:39:36 2026
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Tue Jun 23 2026 05:56:53 +00:00
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> CREATE USER hr_report_user IDENTIFIED BY Report##123;
+CREATE USER hr_report_user IDENTIFIED BY Report##123
+            *
+ERROR at line 1:
+ORA-65096: invalid common user or role name
+
+
+SQL>
