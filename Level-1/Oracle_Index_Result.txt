@@ -1,0 +1,3793 @@
+
+C:\Users\Asus>docker exec -it oracle-srv bash
+bash-4.2$ sqlplus
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Tue Jun 23 11:10:54 2026
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Tue Jun 23 2026 10:13:42 +00:00
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> SHOW USER;
+USER is "SYSTEM"
+SQL> BEGIN
+   EXECUTE IMMEDIATE 'DROP TABLE call_records CASCADE CONSTRAINTS';
+EXCEPTION
+   WHEN OTHERS THEN NULL;
+END;
+/  2    3    4    5    6
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+   EXECUTE IMMEDIATE 'DROP TABLE subscribers CASCADE CONSTRAINTS';
+EXCEPTION
+   WHEN OTHERS THEN NULL;
+END;
+/  2    3    4    5    6
+
+PL/SQL procedure successfully completed.
+
+SQL> CREATE TABLE subscribers
+(
+    subscriber_id NUMBER PRIMARY KEY,
+    msisdn VARCHAR2(20) NOT NULL,
+    customer_name VARCHAR2(100),
+    nrc_no VARCHAR2(50),
+    city VARCHAR2(50),
+    status VARCHAR2(20),
+    activation_date DATE
+);  2    3    4    5    6    7    8    9   10
+
+Table created.
+
+SQL> DESC subscribers;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUBSCRIBER_ID                             NOT NULL NUMBER
+ MSISDN                                    NOT NULL VARCHAR2(20)
+ CUSTOMER_NAME                                      VARCHAR2(100)
+ NRC_NO                                             VARCHAR2(50)
+ CITY                                               VARCHAR2(50)
+ STATUS                                             VARCHAR2(20)
+ ACTIVATION_DATE                                    DATE
+
+SQL> CREATE TABLE call_records
+(
+    call_id NUMBER PRIMARY KEY,
+    subscriber_id NUMBER,
+    called_number VARCHAR2(20),
+    call_type VARCHAR2(20),
+    call_start DATE,
+    duration_sec NUMBER,
+    charge_amount NUMBER(10,2),
+
+    CONSTRAINT fk_call_subscriber
+    2    FOREIGN KEY(subscriber_id)
+    REFERENCES subscribers(subscriber_id)
+);  3    4    5    6    7    8    9   10  SQL> SP2-0734: unknown command beginning "CONSTRAINT..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "FOREIGN KE..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "REFERENCES..." - rest of line ignored.
+SQL>
+SP2-0042: unknown command ")" - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> DESC call_records;
+ERROR:
+ORA-04043: object call_records does not exist
+
+
+SQL> SHOW USER;
+USER is "SYSTEM"
+SQL> DESC subscribers;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUBSCRIBER_ID                             NOT NULL NUMBER
+ MSISDN                                    NOT NULL VARCHAR2(20)
+ CUSTOMER_NAME                                      VARCHAR2(100)
+ NRC_NO                                             VARCHAR2(50)
+ CITY                                               VARCHAR2(50)
+ STATUS                                             VARCHAR2(20)
+ ACTIVATION_DATE                                    DATE
+
+SQL> CREATE TABLE call_records
+(
+    call_id NUMBER PRIMARY KEY,
+    subscriber_id NUMBER,
+    called_number VARCHAR2(20),
+    call_type VARCHAR2(20),
+    call_start DATE,
+    duration_sec NUMBER,
+    charge_amount NUMBER(10,2),
+
+    CONSTRAINT fk_call_subscriber
+    2    FOREIGN KEY(subscriber_id)
+    REFERENCES subscribers(subscriber_id)
+);  3    4    5    6    7    8    9   10  SQL> SP2-0734: unknown command beginning "CONSTRAINT..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "FOREIGN KE..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "REFERENCES..." - rest of line ignored.
+SQL> CREATE TABLE call_records
+(
+    call_id NUMBER PRIMARY KEY,
+    subscriber_id NUMBER,
+    called_number VARCHAR2(20),
+    call_type VARCHAR2(20),
+    call_start DATE,
+    duration_sec NUMBER,
+    charge_amount NUMBER(10,2),
+
+    CONSTRAINT fk_call_subscriber
+    FOREIGN KEY(subscriber_id)
+    REFERENCES subscribers(subscriber_id)
+);SP2-0734: unknown command beginning ");CREATE T..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>   2    3    4    5    6    7    8    9  SQL> SP2-0734: unknown command beginning "CONSTRAINT..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "FOREIGN KE..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "REFERENCES..." - rest of line ignored.
+SQL> DESC call_records;
+SP2-0734: unknown command beginning ");DESC cal..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> DESC call_records;
+ERROR:
+ORA-04043: object call_records does not exist
+
+
+SQL> DROP TABLE call_records CASCADE CONSTRAINTS;
+DROP TABLE call_records CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> DESC subscribers;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUBSCRIBER_ID                             NOT NULL NUMBER
+ MSISDN                                    NOT NULL VARCHAR2(20)
+ CUSTOMER_NAME                                      VARCHAR2(100)
+ NRC_NO                                             VARCHAR2(50)
+ CITY                                               VARCHAR2(50)
+ STATUS                                             VARCHAR2(20)
+ ACTIVATION_DATE                                    DATE
+
+SQL> CREATE TABLE call_records
+(
+    call_id NUMBER PRIMARY KEY,
+    subscriber_id NUMBER,
+    called_number VARCHAR2(20),
+    call_type VARCHAR2(20),
+    call_start DATE,
+    duration_sec NUMBER,
+    charge_amount NUMBER(10,2),
+
+    CONSTRAINT fk_call_subscriber
+    FOREIGN KEY (subscriber_id)
+    REFERENCES subscribers(subscriber_id)
+);  2    3    4    5    6    7    8    9   10  SQL> SP2-0734: unknown command beginning "CONSTRAINT..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "FOREIGN KE..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "REFERENCES..." - rest of line ignored.
+SQL> CREATE TABLE call_records
+(
+    call_id NUMBER PRIMARY KEY,
+    subscriber_id NUMBER,
+    called_number VARCHAR2(20),
+    call_type VARCHAR2(20),
+    call_start DATE,
+    duration_sec NUMBER,
+    charge_amount NUMBER(10,2),
+
+    CONSTRAINT fk_call_subscriber
+    FOREIGN KEY (subscriber_id)
+    REFERENCSP2-0734: ES subscribers(subscriber_id)
+);unknown command beginning ");CREATE T..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>   2    3    4    5    6    7    8    9  SQL> SP2-0734: unknown command beginning "CONSTRAINT..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "FOREIGN KE..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "REFERENCES..." - rest of line ignored.
+SQL> CREATE TABLE call_records
+(
+    call_id NUMBER PRIMARY KEY,
+    subscriber_id NUMBER,
+    called_number VARCHAR2(20),
+    call_type VARCHAR2(20),
+    call_start DATE,
+    duration_sec NUMBER,
+    charge_amount NUMBER(10,2),
+
+    CONSTRAINT fk_call_subscriber
+  SP2-0734:   FOREIGN KEY (subscriber_id)
+    REFERENCES subscribers(subscriber_id)
+);unknown command beginning ");CREATE T..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>   2    3    4    5    6    7    8    9  SQL> SP2-0734: unknown command beginning "CONSTRAINT..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "FOREIGN KE..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "REFERENCES..." - rest of line ignored.
+SQL> CREATE TABLE call_records
+(
+    call_id        NUMBER PRIMARY KEY,
+    subscriber_id  NUMBER,
+    called_number  VARCHAR2(20),
+    call_type      VARCHAR2(20),
+    call_start     DATE,
+    duration_sec   NUMBER,
+    charge_amount  NUMBER(10,2),
+
+    CONSTRAINT fk_call_subscriber
+    FOREIGN KEY (subscriber_id)
+    REFERENCES subscribers(subscriber_id)
+);SP2-0734: unknown command beginning ");CREATE T..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>   2    3    4    5    6    7    8    9  SQL> SP2-0734: unknown command beginning "CONSTRAINT..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "FOREIGN KE..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "REFERENCES..." - rest of line ignored.
+SQLexit
+Disconnected from Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+bash-4.2$ sqlplus
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Tue Jun 23 11:15:49 2026
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Tue Jun 23 2026 11:10:59 +00:00
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> CREATE TABLE call_records
+(
+    call_id NUMBER PRIMARY KEY,
+    subscriber_id NUMBER,
+    called_number VARCHAR2(20),
+    call_type VARCHAR2(20),
+    call_start DATE,
+    duration_sec NUMBER,
+    charge_amount NUMBER(10,2),
+
+    CONSTRAINT fk_call_subscriber
+    FOREIGN KEY (subscriber_id)
+    REFERENCES subscribers(subscriber_id)
+);  2    3    4    5    6    7    8    9   10  SQL> SP2-0734: unknown command beginning "CONSTRAINT..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "FOREIGN KE..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "REFERENCES..." - rest of line ignored.
+SQL> CREATE TABLE call_records
+(
+    call_id        NUMBER PRIMARY KEY,
+    subscriber_id  NUMBER,
+    called_number  VARCHAR2(20),
+    call_type      VARCHAR2(20),
+    call_start     DATE,
+    duration_sec   NUMBER,
+    charge_amount  NUMBER(10,2),
+
+    CONSTRAINT fk_call_subscriber
+    FOREIGN KEY (subscriber_id)
+    REFERENCES subscribers(subscriber_id)
+);SP2-0734: unknown command beginning ");CREATE T..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>   2    3    4    5    6    7    8    9  SQL> SP2-0734: unknown command beginning "CONSTRAINT..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "FOREIGN KE..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "REFERENCES..." - rest of line ignored.
+SQL> CREATE TABLE call_records
+(
+    call_id        NUMBER PRIMARY KEY,
+    subscriber_id  NUMBER,
+    called_number  VARCHAR2(20),
+    call_type      VARCHAR2(20),
+    call_start     DATE,
+    duration_sec   NUMBER,
+    charge_amount  NUMBER(10,2),
+
+    CONSTRAINT fkSP2-0734: _call_subscriber
+    FOREIGN KEY (subscriber_id)
+    REFERENCES subscribers(subscriber_id)
+);unknown command beginning ");CREATE T..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>   2    3    4    5    6    7    8    9  SQL> SP2-0734: unknown command beginning "CONSTRAINT..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "FOREIGN KE..." - rest of line ignored.
+SQL> SP2-0734: unknown command beginning "REFERENCES..." - rest of line ignored.
+SQL> DESC subscribers;
+SP2-0734: unknown command beginning ");DESC sub..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> DESC subscribers;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUBSCRIBER_ID                             NOT NULL NUMBER
+ MSISDN                                    NOT NULL VARCHAR2(20)
+ CUSTOMER_NAME                                      VARCHAR2(100)
+ NRC_NO                                             VARCHAR2(50)
+ CITY                                               VARCHAR2(50)
+ STATUS                                             VARCHAR2(20)
+ ACTIVATION_DATE                                    DATE
+
+SQL> INSERT INTO subscribers VALUES
+(1,'959400000001','Aung Aung',
+'12/ABC(N)123456',
+'Yangon',
+'ACTIVE',
+DATE '2023-01-10');  2    3    4    5    6
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM subscribers;
+
+SUBSCRIBER_ID MSISDN
+------------- --------------------
+CUSTOMER_NAME
+--------------------------------------------------------------------------------
+NRC_NO
+--------------------------------------------------
+CITY                                               STATUS
+-------------------------------------------------- --------------------
+ACTIVATIO
+---------
+            1 959400000001
+Aung Aung
+12/ABC(N)123456
+
+SUBSCRIBER_ID MSISDN
+------------- --------------------
+CUSTOMER_NAME
+--------------------------------------------------------------------------------
+NRC_NO
+--------------------------------------------------
+CITY                                               STATUS
+-------------------------------------------------- --------------------
+ACTIVATIO
+---------
+Yangon                                             ACTIVE
+10-JAN-23
+
+
+SQL> INSERT INTO call_records VALUES
+(101,
+1,
+'959500000001',
+'VOICE',
+DATE '2024-01-01',
+120,
+150);  2    3    4    5    6    7    8
+INSERT INTO call_records VALUES
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT *
+FROM subscribers
+WHERE city='Yangon';  2    3
+
+SUBSCRIBER_ID MSISDN
+------------- --------------------
+CUSTOMER_NAME
+--------------------------------------------------------------------------------
+NRC_NO
+--------------------------------------------------
+CITY                                               STATUS
+-------------------------------------------------- --------------------
+ACTIVATIO
+---------
+            1 959400000001
+Aung Aung
+12/ABC(N)123456
+
+SUBSCRIBER_ID MSISDN
+------------- --------------------
+CUSTOMER_NAME
+--------------------------------------------------------------------------------
+NRC_NO
+--------------------------------------------------
+CITY                                               STATUS
+-------------------------------------------------- --------------------
+ACTIVATIO
+---------
+Yangon                                             ACTIVE
+10-JAN-23
+
+
+SQL> CREATE UNIQUE INDEX idx_subscribers_msisdn
+ON subscribers(msisdn);  2
+
+Index created.
+
+SQL> SELECT *
+FROM subscribers
+WHERE msisdn='959400000004';  2    3
+
+no rows selected
+
+SQL> CREATE INDEX idx_subscribers_city
+ON subscribers(city);  2
+
+Index created.
+
+SQL> SELECT *
+FROM subscribers
+WHERE city='Yangon';  2    3
+
+SUBSCRIBER_ID MSISDN
+------------- --------------------
+CUSTOMER_NAME
+--------------------------------------------------------------------------------
+NRC_NO
+--------------------------------------------------
+CITY                                               STATUS
+-------------------------------------------------- --------------------
+ACTIVATIO
+---------
+            1 959400000001
+Aung Aung
+12/ABC(N)123456
+
+SUBSCRIBER_ID MSISDN
+------------- --------------------
+CUSTOMER_NAME
+--------------------------------------------------------------------------------
+NRC_NO
+--------------------------------------------------
+CITY                                               STATUS
+-------------------------------------------------- --------------------
+ACTIVATIO
+---------
+Yangon                                             ACTIVE
+10-JAN-23
+
+
+SQL> CREATE INDEX idx_subscribers_city_status
+ON subscribers(city,status);  2
+
+Index created.
+
+SQL> SELECT *
+FROM subscribers
+WHERE city='Yangon'
+AND status='ACTIVE';  2    3    4
+
+SUBSCRIBER_ID MSISDN
+------------- --------------------
+CUSTOMER_NAME
+--------------------------------------------------------------------------------
+NRC_NO
+--------------------------------------------------
+CITY                                               STATUS
+-------------------------------------------------- --------------------
+ACTIVATIO
+---------
+            1 959400000001
+Aung Aung
+12/ABC(N)123456
+
+SUBSCRIBER_ID MSISDN
+------------- --------------------
+CUSTOMER_NAME
+--------------------------------------------------------------------------------
+NRC_NO
+--------------------------------------------------
+CITY                                               STATUS
+-------------------------------------------------- --------------------
+ACTIVATIO
+---------
+Yangon                                             ACTIVE
+10-JAN-23
+
+
+SQL> CREATE INDEX idx_call_records_subscriber_id
+ON call_records(subscriber_id);  2
+ON call_records(subscriber_id)
+   *
+ERROR at line 2:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT index_name,
+       table_name,
+       uniqueness,
+       status
+FROM user_indexes
+WHERE table_name IN
+('SUBSCRIBERS','CALL_RECORDS');  2    3    4    5    6    7
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+TABLE_NAME
+--------------------------------------------------------------------------------
+UNIQUENES STATUS
+--------- --------
+SYS_C008339
+SUBSCRIBERS
+UNIQUE    VALID
+
+IDX_SUBSCRIBERS_MSISDN
+SUBSCRIBERS
+UNIQUE    VALID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+TABLE_NAME
+--------------------------------------------------------------------------------
+UNIQUENES STATUS
+--------- --------
+
+IDX_SUBSCRIBERS_CITY
+SUBSCRIBERS
+NONUNIQUE VALID
+
+IDX_SUBSCRIBERS_CITY_STATUS
+SUBSCRIBERS
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+TABLE_NAME
+--------------------------------------------------------------------------------
+UNIQUENES STATUS
+--------- --------
+NONUNIQUE VALID
+
+
+SQL> SELECT index_name,
+       column_name,
+       column_position
+FROM user_ind_columns;  2    3    4
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRT_MDDL$_PK
+SOURCE_OBJ#
+              1
+
+LOGMNRT_MDDL$_PK
+SOURCE_ROWID
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_AGE_SPILL$_PK
+SESSION#
+              1
+
+LOGMNR_AGE_SPILL$_PK
+PDBID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNR_AGE_SPILL$_PK
+XIDUSN
+              3
+
+LOGMNR_AGE_SPILL$_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+XIDSLT
+              4
+
+LOGMNR_AGE_SPILL$_PK
+XIDSQN
+              5
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_AGE_SPILL$_PK
+CHUNK
+              6
+
+LOGMNR_AGE_SPILL$_PK
+SEQUENCE#
+              7
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_DID$_PK
+SESSION#
+              1
+
+LOGMNR_I1ATTRCOL$
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_I1ATTRCOL$
+OBJ#
+              2
+
+LOGMNR_I1ATTRCOL$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+INTCOL#
+              3
+
+LOGMNR_I1ATTRIBUTE$
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1ATTRIBUTE$
+TOID
+              2
+
+LOGMNR_I1ATTRIBUTE$
+VERSION#
+              3
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1ATTRIBUTE$
+ATTRIBUTE#
+              4
+
+LOGMNR_I1CCOL$
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_I1CCOL$
+CON#
+              2
+
+LOGMNR_I1CCOL$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+INTCOL#
+              3
+
+LOGMNR_I1CDEF$
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1CDEF$
+CON#
+              2
+
+LOGMNR_I1COL$
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1COL$
+OBJ#
+              2
+
+LOGMNR_I1COL$
+INTCOL#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              3
+
+LOGMNR_I1COLTYPE$
+OBJ#
+              2
+
+LOGMNR_I1COLTYPE$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+INTCOL#
+              3
+
+LOGMNR_I1COLTYPE$
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1CON$
+LOGMNR_UID
+              1
+
+LOGMNR_I1CON$
+CON#
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1CONTAINER$
+LOGMNR_UID
+              1
+
+LOGMNR_I1CONTAINER$
+CON_ID#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNR_I1DICTIONARY$
+LOGMNR_UID
+              1
+
+LOGMNR_I1ENC$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_UID
+              1
+
+LOGMNR_I1ENC$
+OBJ#
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1ENC$
+OWNER#
+              3
+
+LOGMNR_I1ICOL$
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1ICOL$
+OBJ#
+              2
+
+LOGMNR_I1ICOL$
+INTCOL#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              3
+
+LOGMNR_I1IDNSEQ$
+LOGMNR_UID
+              1
+
+LOGMNR_I1IDNSEQ$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+OBJ#
+              2
+
+LOGMNR_I1IDNSEQ$
+INTCOL#
+              3
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1IND$
+LOGMNR_UID
+              1
+
+LOGMNR_I1IND$
+OBJ#
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1INDCOMPART$
+LOGMNR_UID
+              1
+
+LOGMNR_I1INDCOMPART$
+OBJ#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNR_I1INDPART$
+OBJ#
+              2
+
+LOGMNR_I1INDPART$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+BO#
+              3
+
+LOGMNR_I1INDPART$
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1INDSUBPART$
+LOGMNR_UID
+              1
+
+LOGMNR_I1INDSUBPART$
+OBJ#
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1INDSUBPART$
+POBJ#
+              3
+
+LOGMNR_I1KOPM$
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_I1KOPM$
+NAME
+              2
+
+LOGMNR_I1LOB$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_UID
+              1
+
+LOGMNR_I1LOB$
+OBJ#
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1LOB$
+INTCOL#
+              3
+
+LOGMNR_I1LOBFRAG$
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1LOBFRAG$
+FRAGOBJ#
+              2
+
+LOGMNR_I1LOGMNR_BUILDLOG
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_I1LOGMNR_BUILDLOG
+INITIAL_XID
+              2
+
+LOGMNR_I1NTAB$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_UID
+              1
+
+LOGMNR_I1NTAB$
+OBJ#
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1NTAB$
+INTCOL#
+              3
+
+LOGMNR_I1OBJ$
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1OBJ$
+OBJ#
+              2
+
+LOGMNR_I1OPQTYPE$
+INTCOL#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              3
+
+LOGMNR_I1OPQTYPE$
+LOGMNR_UID
+              1
+
+LOGMNR_I1OPQTYPE$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+OBJ#
+              2
+
+MVIEW$_ADV_PARAMETERS_PK
+PARAMETER_NAME
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+MVIEW$_ADV_PRETTY_IDX_01
+QUERYID#
+              1
+
+MVIEW$_ADV_ROLLUP_PK
+RUNID#
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+MVIEW$_ADV_ROLLUP_PK
+CLEVELID#
+              2
+
+MVIEW$_ADV_ROLLUP_PK
+PLEVELID#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              3
+
+MVIEW$_ADV_SQLDEPEND_IDX_01
+COLLECTIONID#
+              1
+
+MVIEW$_ADV_SQLDEPEND_IDX_01
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+FROM_ADDRESS
+              2
+
+MVIEW$_ADV_SQLDEPEND_IDX_01
+FROM_HASH
+              3
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+MVIEW$_ADV_SQLDEPEND_IDX_01
+INST_ID
+              4
+
+MVIEW$_ADV_TEMP_IDX_01
+ID#
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+MVIEW$_ADV_TEMP_IDX_01
+SEQ#
+              2
+
+MVIEW$_ADV_WORKLOAD_IDX_01
+COLLECTIONID#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+MVIEW$_ADV_WORKLOAD_IDX_01
+QUERYID#
+              2
+
+MVIEW$_ADV_WORKLOAD_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+QUERYID#
+              1
+
+OL$HNT_NUM
+OL_NAME
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+OL$HNT_NUM
+HINT#
+              2
+
+OL$NAME
+OL_NAME
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+OL$SIGNATURE
+SIGNATURE
+              1
+
+OL$SIGNATURE
+CATEGORY
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+REDO_DB_IDX
+DBID
+              2
+
+REDO_DB_IDX
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+THREAD#
+              3
+
+REDO_DB_IDX
+RESETLOGS_SCN
+              4
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+REDO_DB_IDX
+RESETLOGS_TIME
+              5
+
+REDO_DB_IDX
+TENANT_KEY
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+REDO_LOG_IDX
+TENANT_KEY
+              1
+
+REDO_LOG_IDX
+DBID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+REDO_LOG_IDX
+THREAD#
+              3
+
+REDO_LOG_IDX
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+RESETLOGS_SCN
+              4
+
+REDO_LOG_IDX
+RESETLOGS_TIME
+              5
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+REPL_SUPPORT_MATRIX_PK
+BMAP1
+              1
+
+REPL_SUPPORT_MATRIX_PK
+BMAP2
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+REPL_SUPPORT_MATRIX_PK
+REPL_PRODUCT
+              3
+
+REPL_SUPPORT_MATRIX_PK
+SUPPORT_MODE
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              4
+
+SYS_C002648
+AGENT_NAME
+              1
+
+SYS_C005845
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+PRIMARY_SCN
+              1
+
+SYS_C008315
+DEPARTMENT_ID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+SYS_C008317
+JOB_ID
+              1
+
+SYS_C008321
+EMPLOYEE_ID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+SYS_C008322
+EMAIL
+              1
+
+SYS_C008328
+ATTENDANCE_ID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+SYS_C008331
+PAYROLL_ID
+              1
+
+SYS_C008333
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+DEPTNO
+              1
+
+SYS_C008334
+EMPNO
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+SYS_C008339
+SUBSCRIBER_ID
+              1
+
+UNQ_PAIRS
+AGENT_NAME
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+UNQ_PAIRS
+DB_USERNAME
+              2
+
+LOGMNR_LOG$_FIRST_CHANGE#
+FIRST_CHANGE#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_LOG$_FLAGS
+FLAGS
+              1
+
+LOGMNR_LOG$_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+SESSION#
+              1
+
+LOGMNR_LOG$_PK
+THREAD#
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_LOG$_PK
+SEQUENCE#
+              3
+
+LOGMNR_LOG$_PK
+FIRST_CHANGE#
+              4
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_LOG$_PK
+DB_ID
+              5
+
+LOGMNR_LOG$_PK
+RESETLOGS_CHANGE#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              6
+
+LOGMNR_LOG$_PK
+RESET_TIMESTAMP
+              7
+
+LOGMNR_LOG$_PURGE_IDX1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+FILE_NAME
+              1
+
+LOGMNR_LOG$_PURGE_IDX1
+STATUS
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_LOG$_PURGE_IDX2
+SESSION#
+              1
+
+LOGMNR_LOG$_PURGE_IDX2
+RESET_TIMESTAMP
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_LOG$_PURGE_IDX2
+NEXT_CHANGE#
+              3
+
+LOGMNR_LOG$_PURGE_IDX2
+STATUS
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              4
+
+LOGMNR_LOG$_RECID
+RECID
+              1
+
+LOGMNR_PARAMETER_INDX
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+SESSION#
+              1
+
+LOGMNR_PARAMETER_INDX
+NAME
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_PDB_INFO$_PK
+LOGMNR_DID
+              1
+
+LOGMNR_PDB_INFO$_PK
+LOGMNR_MDH
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_PDB_INFO$_PK
+PLUGIN_SCN
+              3
+
+LOGMNR_PROCESSED_LOG$_PK
+SESSION#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_PROCESSED_LOG$_PK
+THREAD#
+              2
+
+LOGMNR_PROFILE_PLSQL$_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+PKGOWNER
+              1
+
+LOGMNR_PROFILE_PLSQL$_PK
+PKGNAME
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_PROFILE_PLSQL$_PK
+NAME
+              3
+
+LOGMNR_PROFILE_TABLE$_PK
+OBJID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_RESTART_CKPT$_PK
+SESSION#
+              1
+
+LOGMNR_RESTART_CKPT$_PK
+CKPT_SCN
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNR_RESTART_CKPT$_PK
+XIDUSN
+              3
+
+LOGMNR_RESTART_CKPT$_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+XIDSLT
+              4
+
+LOGMNR_RESTART_CKPT$_PK
+XIDSQN
+              5
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_RESTART_CKPT$_PK
+PDBID
+              6
+
+LOGMNR_RESTART_CKPT$_PK
+SESSION_NUM
+              7
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_RESTART_CKPT$_PK
+SERIAL_NUM
+              8
+
+LOGMNR_RESTART_CKPT_TXINFO$_PK
+SESSION#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_RESTART_CKPT_TXINFO$_PK
+XIDUSN
+              2
+
+LOGMNR_RESTART_CKPT_TXINFO$_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+XIDSLT
+              3
+
+LOGMNR_RESTART_CKPT_TXINFO$_PK
+XIDSQN
+              4
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_RESTART_CKPT_TXINFO$_PK
+SESSION_NUM
+              5
+
+LOGMNR_RESTART_CKPT_TXINFO$_PK
+SERIAL_NUM
+              6
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_RESTART_CKPT_TXINFO$_PK
+EFFECTIVE_SCN
+              7
+
+LOGMNR_SESSION_ACTION$_PK
+LOGMNRSESSION#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_SESSION_ACTION$_PK
+ACTIONNAME
+              2
+
+LOGMNR_SESSION_EVOLVE$_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+SESSION#
+              1
+
+LOGMNR_SESSION_EVOLVE$_PK
+DB_ID
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_SESSION_EVOLVE$_PK
+RESET_SCN
+              3
+
+LOGMNR_SESSION_EVOLVE$_PK
+RESET_TIMESTAMP
+              4
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_SESSION_PK
+SESSION#
+              1
+
+LOGMNR_SESSION_UK1
+SESSION_NAME
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_SPILL$_PK
+SESSION#
+              1
+
+LOGMNR_SPILL$_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+PDBID
+              2
+
+LOGMNR_SPILL$_PK
+XIDUSN
+              3
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_SPILL$_PK
+XIDSLT
+              4
+
+LOGMNR_SPILL$_PK
+XIDSQN
+              5
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_SPILL$_PK
+CHUNK
+              6
+
+LOGMNR_SPILL$_PK
+STARTIDX
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              7
+
+LOGMNR_SPILL$_PK
+ENDIDX
+              8
+
+LOGMNR_SPILL$_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+FLAG
+              9
+
+LOGMNR_SPILL$_PK
+SEQUENCE#
+             10
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_UID$_PK
+LOGMNR_UID
+              1
+
+LOGSTDBY$EDS_TABLES_PKEY
+OWNER
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGSTDBY$EDS_TABLES_PKEY
+TABLE_NAME
+              2
+
+LOGSTDBY$EVENTS_IND
+EVENT_TIME
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGSTDBY$EVENTS_IND_SCN
+COMMIT_SCN
+              1
+
+LOGSTDBY$EVENTS_IND_XID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+XIDUSN
+              1
+
+LOGSTDBY$EVENTS_IND_XID
+XIDSLT
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGSTDBY$EVENTS_IND_XID
+XIDSQN
+              3
+
+LOGSTDBY$SKIP_IDX1
+USE_LIKE
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGSTDBY$SKIP_IDX1
+SCHEMA
+              2
+
+LOGSTDBY$SKIP_IDX1
+NAME
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              3
+
+LOGSTDBY$SKIP_IDX2
+STATEMENT_OPT
+              1
+
+LOGSTDBY$SKIP_IND
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+NAME
+              1
+
+LOGSTDBY$SKIP_IND
+ACTION
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+MVIEW$_ADV_AJG_PK
+AJGID#
+              1
+
+MVIEW$_ADV_BASETABLE_IDX_01
+QUERYID#
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+MVIEW$_ADV_CLIQUE_PK
+CLIQUEID#
+              1
+
+MVIEW$_ADV_ELIGIBLE_PK
+SUMOBJN#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+MVIEW$_ADV_ELIGIBLE_PK
+RUNID#
+              2
+
+MVIEW$_ADV_FILTER_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+FILTERID#
+              1
+
+MVIEW$_ADV_FILTER_PK
+SUBFILTERNUM#
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+MVIEW$_ADV_FJG_PK
+FJGID#
+              1
+
+MVIEW$_ADV_GC_PK
+GCID#
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+MVIEW$_ADV_INFO_PK
+RUNID#
+              1
+
+MVIEW$_ADV_INFO_PK
+SEQ#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+MVIEW$_ADV_JOURNAL_PK
+RUNID#
+              1
+
+MVIEW$_ADV_JOURNAL_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+SEQ#
+              2
+
+MVIEW$_ADV_LEVEL_PK
+RUNID#
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+MVIEW$_ADV_LEVEL_PK
+LEVELID#
+              2
+
+MVIEW$_ADV_LOG_PK
+RUNID#
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+MVIEW$_ADV_OUTPUT_PK
+RUNID#
+              1
+
+MVIEW$_ADV_OUTPUT_PK
+RANK#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNR_I1PARTOBJ$
+LOGMNR_UID
+              1
+
+LOGMNR_I1PARTOBJ$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+OBJ#
+              2
+
+LOGMNR_I1PROPS$
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1PROPS$
+NAME
+              2
+
+LOGMNR_I1REFCON$
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1REFCON$
+OBJ#
+              2
+
+LOGMNR_I1REFCON$
+INTCOL#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              3
+
+LOGMNR_I1SEED$
+LOGMNR_UID
+              1
+
+LOGMNR_I1SEED$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+OBJ#
+              2
+
+LOGMNR_I1SEED$
+INTCOL#
+              3
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1SHARD_TS
+LOGMNR_UID
+              1
+
+LOGMNR_I1SHARD_TS
+TABLESPACE_NAME
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1SUBCOLTYPE$
+LOGMNR_UID
+              1
+
+LOGMNR_I1SUBCOLTYPE$
+OBJ#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNR_I1SUBCOLTYPE$
+INTCOL#
+              3
+
+LOGMNR_I1SUBCOLTYPE$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+TOID
+              4
+
+LOGMNR_I1TAB$
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1TAB$
+OBJ#
+              2
+
+LOGMNR_I1TABCOMPART$
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1TABCOMPART$
+OBJ#
+              2
+
+LOGMNR_I1TABPART$
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_I1TABPART$
+OBJ#
+              2
+
+LOGMNR_I1TABPART$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+BO#
+              3
+
+LOGMNR_I1TABSUBPART$
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1TABSUBPART$
+OBJ#
+              2
+
+LOGMNR_I1TABSUBPART$
+POBJ#
+              3
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I1TS$
+LOGMNR_UID
+              1
+
+LOGMNR_I1TS$
+TS#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNR_I1TYPE$
+LOGMNR_UID
+              1
+
+LOGMNR_I1TYPE$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+TOID
+              2
+
+LOGMNR_I1TYPE$
+VERSION#
+              3
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I1USER$
+LOGMNR_UID
+              1
+
+LOGMNR_I1USER$
+USER#
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I2CDEF$
+LOGMNR_UID
+              1
+
+LOGMNR_I2CDEF$
+ROBJ#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNR_I2COL$
+LOGMNR_UID
+              1
+
+LOGMNR_I2COL$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+OBJ#
+              2
+
+LOGMNR_I2COL$
+NAME
+              3
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I2IDNSEQ$
+LOGMNR_UID
+              1
+
+LOGMNR_I2IDNSEQ$
+SEQOBJ#
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I2IND$
+LOGMNR_UID
+              1
+
+LOGMNR_I2IND$
+BO#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNR_I2INDPART$
+LOGMNR_UID
+              1
+
+LOGMNR_I2INDPART$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+BO#
+              2
+
+LOGMNR_I2NTAB$
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I2NTAB$
+NTAB#
+              2
+
+LOGMNR_I2OBJ$
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I2OBJ$
+OID$
+              2
+
+LOGMNR_I2SEED$
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_I2SEED$
+SCHEMANAME
+              2
+
+LOGMNR_I2SEED$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+TABLE_NAME
+              3
+
+LOGMNR_I2SEED$
+COL_NAME
+              4
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I2SEED$
+OBJ#
+              5
+
+LOGMNR_I2SEED$
+INTCOL#
+              6
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I2TAB$
+LOGMNR_UID
+              1
+
+LOGMNR_I2TAB$
+BOBJ#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNR_I2TABCOMPART$
+LOGMNR_UID
+              1
+
+LOGMNR_I2TABCOMPART$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+BO#
+              2
+
+LOGMNR_I2TABPART$
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I2TABPART$
+BO#
+              2
+
+LOGMNR_I2TABSUBPART$
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I2TABSUBPART$
+POBJ#
+              2
+
+LOGMNR_I2USER$
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_I2USER$
+NAME
+              2
+
+LOGMNR_I3CDEF$
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_UID
+              1
+
+LOGMNR_I3CDEF$
+OBJ#
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_I3COL$
+LOGMNR_UID
+              1
+
+LOGMNR_I3COL$
+OBJ#
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNR_I3COL$
+COL#
+              3
+
+LOGMNR_I3OBJ$
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNR_I3OBJ$
+NAME
+              2
+
+LOGMNRC_GTCS_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_UID
+              1
+
+LOGMNRC_GTCS_PK
+OBJ#
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRC_GTCS_PK
+OBJV#
+              3
+
+LOGMNRC_GTCS_PK
+INTCOL#
+              4
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRC_GTLO_PK
+LOGMNR_UID
+              1
+
+LOGMNRC_GTLO_PK
+KEYOBJ#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNRC_GTLO_PK
+BASEOBJV#
+              3
+
+LOGMNRC_I1CONGG
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_UID
+              1
+
+LOGMNRC_I1CONGG
+BASEOBJ#
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRC_I1CONGG
+BASEOBJV#
+              3
+
+LOGMNRC_I1CONGG
+COMMIT_SCN
+              4
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRC_I1INDGG
+LOGMNR_UID
+              1
+
+LOGMNRC_I1INDGG
+BASEOBJ#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNRC_I1INDGG
+BASEOBJV#
+              3
+
+LOGMNRC_I1INDGG
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+COMMIT_SCN
+              4
+
+LOGMNRC_I1SHARD_TS
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRC_I1SHARD_TS
+DROP_SCN
+              2
+
+LOGMNRC_I1TS
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRC_I1TS
+DROP_SCN
+              2
+
+LOGMNRC_I1TSPART
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNRC_I1TSPART
+DROP_SCN
+              2
+
+LOGMNRC_I1USER
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_UID
+              1
+
+LOGMNRC_I1USER
+NAME
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRC_I1USER
+START_SCN
+              3
+
+LOGMNRC_I2CONGG
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRC_I2CONGG
+DROP_SCN
+              2
+
+LOGMNRC_I2GTCS
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNRC_I2GTCS
+OBJ#
+              2
+
+LOGMNRC_I2GTCS
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+OBJV#
+              3
+
+LOGMNRC_I2GTCS
+SEGCOL#
+              4
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRC_I2GTCS
+INTCOL#
+              5
+
+LOGMNRC_I2GTLO
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRC_I2GTLO
+BASEOBJ#
+              2
+
+LOGMNRC_I2GTLO
+BASEOBJV#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              3
+
+LOGMNRC_I2INDGG
+LOGMNR_UID
+              1
+
+LOGMNRC_I2INDGG
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+DROP_SCN
+              2
+
+LOGMNRC_I2SEQGG
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRC_I2SEQGG
+DROP_SCN
+              2
+
+LOGMNRC_I3GTLO
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRC_I3GTLO
+DROP_SCN
+              2
+
+LOGMNRC_INDCOL_GG_PK
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNRC_INDCOL_GG_PK
+OBJ#
+              2
+
+LOGMNRC_INDCOL_GG_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+COMMIT_SCN
+              3
+
+LOGMNRC_INDCOL_GG_PK
+INTCOL#
+              4
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRC_IND_GG_PK
+LOGMNR_UID
+              1
+
+LOGMNRC_IND_GG_PK
+OBJ#
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRC_IND_GG_PK
+COMMIT_SCN
+              3
+
+LOGMNRC_SEQ_GG_PK
+LOGMNR_UID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+LOGMNRC_SEQ_GG_PK
+OBJ#
+              2
+
+LOGMNRC_SEQ_GG_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+COMMIT_SCN
+              3
+
+LOGMNRC_SHARD_TS_PK
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRC_SHARD_TS_PK
+TABLESPACE_NAME
+              2
+
+LOGMNRC_SHARD_TS_PK
+START_SCN
+              3
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRC_TSPART_PK
+LOGMNR_UID
+              1
+
+LOGMNRC_TSPART_PK
+OBJ#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNRC_TSPART_PK
+START_SCN
+              3
+
+LOGMNRC_TS_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_UID
+              1
+
+LOGMNRC_TS_PK
+TS#
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRC_TS_PK
+START_SCN
+              3
+
+LOGMNRC_USER_PK
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRC_USER_PK
+USER#
+              2
+
+LOGMNRC_USER_PK
+START_SCN
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              3
+
+LOGMNRGGC_GTCS_PK
+LOGMNR_UID
+              1
+
+LOGMNRGGC_GTCS_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+OBJ#
+              2
+
+LOGMNRGGC_GTCS_PK
+OBJV#
+              3
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRGGC_GTCS_PK
+INTCOL#
+              4
+
+LOGMNRGGC_GTLO_PK
+LOGMNR_UID
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRGGC_GTLO_PK
+KEYOBJ#
+              2
+
+LOGMNRGGC_GTLO_PK
+BASEOBJV#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              3
+
+LOGMNRGGC_I2GTCS
+LOGMNR_UID
+              1
+
+LOGMNRGGC_I2GTCS
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+OBJ#
+              2
+
+LOGMNRGGC_I2GTCS
+OBJV#
+              3
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRGGC_I2GTCS
+SEGCOL#
+              4
+
+LOGMNRGGC_I2GTCS
+INTCOL#
+              5
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRGGC_I2GTLO
+LOGMNR_UID
+              1
+
+LOGMNRGGC_I2GTLO
+BASEOBJ#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNRGGC_I2GTLO
+BASEOBJV#
+              3
+
+LOGMNRGGC_I3GTLO
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNR_UID
+              1
+
+LOGMNRGGC_I3GTLO
+DROP_SCN
+              2
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRP_CTAS_PART_MAP_I
+LOGMNR_UID
+              1
+
+LOGMNRP_CTAS_PART_MAP_I
+BASEOBJ#
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRP_CTAS_PART_MAP_I
+BASEOBJV#
+              3
+
+LOGMNRP_CTAS_PART_MAP_I
+PART#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              4
+
+LOGMNRP_CTAS_PART_MAP_PK
+LOGMNR_UID
+              1
+
+LOGMNRP_CTAS_PART_MAP_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+BASEOBJV#
+              2
+
+LOGMNRP_CTAS_PART_MAP_PK
+KEYOBJ#
+              3
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+AQ$_KEY_SHARD_MAP_PK
+QUEUE
+              1
+
+AQ$_KEY_SHARD_MAP_PK
+KEY
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+AQ$_QUEUES_CHECK
+NAME
+              1
+
+AQ$_QUEUES_CHECK
+TABLE_OBJNO
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+AQ$_QUEUES_PRIMARY
+OID
+              1
+
+AQ$_QUEUE_TABLES_PRIMARY
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+OBJNO
+              1
+
+AQ$_SCHEDULES_CHECK
+JOBNO
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+AQ$_SCHEDULES_PRIMARY
+OID
+              1
+
+AQ$_SCHEDULES_PRIMARY
+DESTINATION
+              2
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+HELP_TOPIC_SEQ
+TOPIC
+              1
+
+HELP_TOPIC_SEQ
+SEQ
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+I1_QUEUES
+NAME
+              1
+
+I1_QUEUES
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+EVENTID
+              2
+
+I1_QUEUES
+TABLE_OBJNO
+              3
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+I1_QUEUE_TABLES
+SCHEMA
+              2
+
+I1_QUEUE_TABLES
+FLAGS
+              3
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+I1_QUEUE_TABLES
+OBJNO
+              1
+
+IDX_EMP_DEPARTMENT
+DEPARTMENT_ID
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              1
+
+IDX_EMP_JOB
+JOB_ID
+              1
+
+IDX_SUBSCRIBERS_CITY
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+CITY
+              1
+
+IDX_SUBSCRIBERS_CITY_STATUS
+CITY
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+IDX_SUBSCRIBERS_CITY_STATUS
+STATUS
+              2
+
+IDX_SUBSCRIBERS_MSISDN
+MSISDN
+              1
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRC_CONCOL_GG_PK
+LOGMNR_UID
+              1
+
+LOGMNRC_CONCOL_GG_PK
+CON#
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNRC_CONCOL_GG_PK
+COMMIT_SCN
+              3
+
+LOGMNRC_CONCOL_GG_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+INTCOL#
+              4
+
+LOGMNRC_CON_GG_PK
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRC_CON_GG_PK
+CON#
+              2
+
+LOGMNRC_CON_GG_PK
+COMMIT_SCN
+              3
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+
+LOGMNRC_DBNAME_UID_MAP_PK
+GLOBAL_NAME
+              1
+
+LOGMNRC_DBNAME_UID_MAP_PK
+LOGMNR_MDH
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+              2
+
+LOGMNRC_GSBA_PK
+LOGMNR_UID
+              1
+
+LOGMNRC_GSBA_PK
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+AS_OF_SCN
+              2
+
+LOGMNRC_GSII_PK
+LOGMNR_UID
+              1
+
+
+INDEX_NAME
+--------------------------------------------------------------------------------
+COLUMN_NAME
+--------------------------------------------------------------------------------
+COLUMN_POSITION
+---------------
+LOGMNRC_GSII_PK
+OBJ#
+              2
+
+
+400 rows selected.
+
+SQL> ALTER INDEX idx_subscribers_msisdn
+MONITORING USAGE;  2
+
+Index altered.
+
+SQL> SELECT *
+FROM subscribers
+WHERE msisdn='959400000004';  2    3
+
+no rows selected
+
+SQL> SELECT *
+FROM v$object_usage
+WHERE index_name='IDX_SUBSCRIBERS_MSISDN';  2    3
+FROM v$object_usage
+     *
+ERROR at line 2:
+ORA-00942: table or view does not exist
+
+
+SQL> ALTER INDEX idx_subscribers_msisdn
+NOMONITORING USAGE;  2
+
+Index altered.
+
+SQL> ALTER INDEX idx_subscribers_msisdn REBUILD;
+
+Index altered.
+
+SQL> DROP INDEX idx_subscribers_city;
+
+Index dropped.
+
+SQL>
