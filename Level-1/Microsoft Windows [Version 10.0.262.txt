@@ -1,5 +1,4 @@
-Microsoft Windows [Version 10.0.26200.8655]
-(c) Microsoft Corporation. All rights reserved.
+Oracle HR Database Lab Script
 
 C:\Users\Asus>docker exec -it oracle-srv bash
 bash-4.2$ sqlplus
