@@ -1,0 +1,104 @@
+
+C:\Users\Asus>docker exec -it oracle-srv bash
+bash-4.2$ sqlplus
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Mon Jun 29 14:32:09 2026
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Mon Jun 29 2026 14:14:00 +00:00
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> CREATE SEQUENCE abc;
+
+Sequence created.
+
+SQL> CREATE TABLE test_tb
+(ID number(3),
+Content VARCHAR2(40)
+);
+  2    3    4
+Table created.
+
+SQL> INSERT INTO test_tb VALUES(abc.NEXTVAL, '111');
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '112');
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '113');
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '114');
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '115');
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '116');
+1 row created.
+
+SQL>
+1 row created.
+
+SQL>
+1 row created.
+
+SQL>
+1 row created.
+
+SQL>
+1 row created.
+
+SQL> ALTER SEQUENCE abc
+INCREMENT BY 2;  2
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '116');ALTER SEQUENCE abc
+                                              *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> INSERT INTO test_tb VALUES(abc.NEXTVAL, '117');
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '118');
+1 row created.
+
+SQL> SELECT * FROM test_tb;
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '118');SELECT * FROM test_tb
+                                              *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> ALTER SEQUENCE abc
+INCREMENT BY 2
+MAXVALUE 12
+MINVALUE 1
+CYCLE
+CACHE 5;  2    3    4    5    6
+
+Sequence altered.
+
+SQL> INSERT INTO test_tb VALUES(abc.NEXTVAL, '119');
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '120');
+1 row created.
+
+SQL> ALTER SEQUENCE abc
+INCREMENT BY 1
+MAXVALUE 12
+MINVALUE 1
+CYCLE
+CACHE 5;  2    3    4    5    6
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '120');ALTER SEQUENCE abc
+                                              *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> INSERT INTO test_tb VALUES(abc.NEXTVAL, '121');
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '122');
+1 row created.
+
+SQL> DROP SEQUENCE ABC;
+INSERT INTO test_tb VALUES(abc.NEXTVAL, '122');DROP SEQUENCE ABC
+                                              *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL>
